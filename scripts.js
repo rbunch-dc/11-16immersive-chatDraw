@@ -37,6 +37,16 @@ var thickness = 10;
 var mouseDown = false;
 var mousePosition = {};
 var lastMousePosition = null;
+var colorPick = document.getElementById('color-picker');
+var thicknessPicker = document.getElementById('thickness');
+
+colorPick.addEventListener('change' (event)=>{
+	color = colorPick.value;
+});
+
+thicknessPicker.addEventListener('change'(event)=>{
+	thickness = thicknessPicker.value;
+})
 
 canvas.addEventListener('mousedown', (event)=>{
 	// console.log(event);
@@ -59,23 +69,43 @@ canvas.addEventListener('mousemove', (event)=>{
 			y: magicBrushY
 		}
 		console.log(mousePosition);
-		if(lastMousePosition !== null){
-			context.strokeStyle = color;
-			context.lineJoin = 'round';
-			context.lineWidth = thickness;
-			context.beginPath();
-			context.moveTo(lastMousePosition.x, lastMousePosition.y);
-			context.lineTo(mousePosition.x, mousePosition.y);
-			context.stroke();
-			context.closePath();
-		}
+		// if(lastMousePosition !== null){
+		// 	context.strokeStyle = color;
+		// 	context.lineJoin = 'round';
+		// 	context.lineWidth = thickness;
+		// 	context.beginPath();
+		// 	context.moveTo(lastMousePosition.x, lastMousePosition.y);
+		// 	context.lineTo(mousePosition.x, mousePosition.y);
+		// 	context.stroke();
+		// 	context.closePath();
+		// }
 
 		// update lastMousePosition
+		var drawingDataForServer = {
+			mousePosition: mousePosition,
+			lastMousePosition: lastMousePosition,
+			color: color,
+			thickness: thickness
+		}
+
 		lastMousePosition = {
 			x: mousePosition.x,
 			y: mousePosition.y,
 		}
 
+		socketio.emit('drawingToServer', drawingDataForServer);
+
+		socketio.on('drawingToClients', (drawingData)=>{
+			console.log(drawingData);
+			context.strokeStyle = drawingData.color;
+			context.lineJoin = 'round';
+			context.lineWidth = drawingData.thickness;
+			context.beginPath();
+			context.moveTo(drawingData.lastMousePosition.x, drawingData.lastMousePosition.y);
+			context.lineTo(drawingData.mousePosition.x, drawingData.mousePosition.y);
+			context.stroke();
+			context.closePath();			
+		});
 
 	}
 });
