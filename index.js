@@ -19,5 +19,10 @@ var server = http.createServer((req, res)=>{
 	});
 });
 
+// Include the server versino of socketIo and assign it to a variable
+var socketIo = require('socket.io');
+// Sockets are going to listen to the server which is listening on port 8080.
+var io = socketIo.listen(server);
+
 server.listen(8080);
 console.log("Listening on port 8080...");
