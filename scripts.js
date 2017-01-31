@@ -40,11 +40,11 @@ var lastMousePosition = null;
 var colorPick = document.getElementById('color-picker');
 var thicknessPicker = document.getElementById('thickness');
 
-colorPick.addEventListener('change' (event)=>{
+colorPick.addEventListener('change', (event)=>{
 	color = colorPick.value;
 });
 
-thicknessPicker.addEventListener('change'(event)=>{
+thicknessPicker.addEventListener('change', (event)=>{
 	thickness = thicknessPicker.value;
 })
 
@@ -56,6 +56,7 @@ canvas.addEventListener('mousedown', (event)=>{
 canvas.addEventListener('mouseup', (event)=>{
 	// console.log(event);
 	mouseDown = false;
+	lastMousePosition = null;
 });
 
 canvas.addEventListener('mousemove', (event)=>{
