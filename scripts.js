@@ -62,14 +62,16 @@ canvas.addEventListener('mouseup', (event)=>{
 canvas.addEventListener('mousemove', (event)=>{
 	// console.log(event);
 	if(mouseDown){
+		console.log(event.pageX);
+		// console.dir(canvas);
 		// mouse must be down because we update this boolean in mousedown/mouseup
-		var magicBrushX = event.pageX - canvas.offsetLeft;
-		var magicBrushY = event.pageY - canvas.offsetTop;
+		var magicBrushX = event.pageX - 120;
+		var magicBrushY = event.pageY - 240;
 		mousePosition = {
 			x: magicBrushX,
 			y: magicBrushY
 		}
-		console.log(mousePosition);
+		// console.log(mousePosition);
 		// if(lastMousePosition !== null){
 		// 	context.strokeStyle = color;
 		// 	context.lineJoin = 'round';
@@ -97,7 +99,7 @@ canvas.addEventListener('mousemove', (event)=>{
 		socketio.emit('drawingToServer', drawingDataForServer);
 
 		socketio.on('drawingToClients', (drawingData)=>{
-			console.log(drawingData);
+			// console.log(drawingData);
 			context.strokeStyle = drawingData.color;
 			context.lineJoin = 'round';
 			context.lineWidth = drawingData.thickness;
