@@ -42,8 +42,8 @@ io.sockets.on('connect', (socket)=>{
 
 	})
 
-	socket.on('wordGuessToServer' (word) =>{
-		
+	socket.on('wordGuessToServer', (word) =>{
+
 	})
 
 	socket.on('messageToServer', (messageObject)=>{
