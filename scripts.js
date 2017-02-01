@@ -1,6 +1,6 @@
 
 // !!!!!!!!!!!WEBSOCKET SECTION!!!!!!!!!!!!!!!!!!!
-var socketio = io.connect('http://127.0.0.1:8080');
+var socketio = io.connect('http://35.161.243.192:8080');
 
 socketio.on('users', (socketUsers)=>{
 	console.log(socketUsers);

@@ -38,6 +38,14 @@ io.sockets.on('connect', (socket)=>{
 	})
 	io.sockets.emit('users', socketUsers);
 
+	socket.on('nameToServer', (name)=>{
+
+	})
+
+	socket.on('wordGuessToServer' (word) =>{
+		
+	})
+
 	socket.on('messageToServer', (messageObject)=>{
 		console.log("Someone sent a message. It is",messageObject.message);
 		io.sockets.emit("messageToClient",{
